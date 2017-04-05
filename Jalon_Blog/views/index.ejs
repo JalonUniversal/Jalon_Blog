@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!--顶部导航-->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/index"><%= title %></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <a href="#">主页</a>
+            </li>
+            <li>
+              <a href="#">关于</a>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="搜索文章">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">更多...<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">添加文章</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">切换帐号</a></li>
+                <li><a href="#">注销登录</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!--页面主体-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-9">
+          <% articles.forEach(function(article){ %>
+          <div class="media">
+            <div class="media-left media-middle">
+              <a href="#">
+                <img class="media-object" src="/images/vuejs.jpg">
+              </a>
+            </div>
+            <div class="media-body" style="margin-top:10px;">
+              <h4 class="media-heading"><%=article.title %></h4>
+              <%= article.description%>
+            </div>
+          </div>
+          <% })%>
+        </div>
+        <!--热门文章-->
+        <div class="col-md-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item active">
+              <h4 class="list-group-item-heading">热门文章</h4>
+            </a>
+            <% topics.forEach(function(topic){ %>
+            <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading"><%=topic.title%></h4>
+              <p class="list-group-item-text"><%=topic.description%></p>
+            </a>
+            <% }) %>
+            <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading">Http 详解</h4>
+              <p class="list-group-item-text">...</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+            Github: <a href="https://github.com/JalonUniversal">https://github.com/JalonUniversal</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
