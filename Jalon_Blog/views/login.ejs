@@ -18,37 +18,91 @@
     <!--页面主体-->
     <div class="container">
       <div class="row">
+        <!--登录表单-->
         <div class="col-md-4 text-center col-md-offset-4 login-box">
-            <form class="form-horizontal" method="POST" action="/auth/login">
+        <!-- method="POST" action="/auth/login" -->
+            <div class="form-horizontal" >
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-3 control-label">邮 箱</label>
                     <div class="col-sm-9">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="邮箱" name="email">
+                    <input type="email" class="form-control" placeholder="邮箱" name="email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-3 control-label">密 码</label>
                     <div class="col-sm-9">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="password">
+                    <input type="password" class="form-control" placeholder="密码" name="password">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-10">
                     <div class="checkbox">
                         <label>
-                        <input type="checkbox" name="rememberStatus"> 记住登录状态
+                        <input type="checkbox" name="remeber" /> 记住登录状态
                         </label>
                     </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-10">
-                        <button type="submit" class="btn btn-default" href="/">登录</button>
+                        <div class="btn btn-default" id="login">登录</div>
                     </div>
                 </div>
-            </form>
+            </div>
+        </div>
+        <!--模态框-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalTips">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">登录失败</h4>
+                </div>
+                <div class="modal-body" id="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
         </div>
       </div>
     </div>
+    <script>
+        $(function(){
+            $('#login').click(function(event){
+                event.preventDefault();
+                const email = $('[name=email]')[0].value;
+                const password = $('[name=password]')[0].value;
+                const isRememberPWD = $('[name=remeber]')[0].checked;
+                console.log(email);
+                console.log(password);
+                console.log(isRememberPWD);
+                $.ajax({
+                  url: '/auth/login',
+                  type: 'POST',
+                  data: {
+                    email: email,
+                    password: password,
+                    rememberPassword: isRememberPWD
+                  },
+                  dataType: 'json',
+                  success(data) {
+                    if (!!data) {
+                      if (data.type === 1) {
+                        location.href = '/';
+                      } else {
+                        $('#modal-body').text(data.msg);
+                        $('#modalTips').modal();
+                      }
+                    }
+                  },
+                  error(err) {
+                    $('#modal-body').text(err.responseJSON.msg);
+                    $('#modalTips').modal();
+                  }
+                });
+            });
+        });
+    </script>
   </body>
 </html>

@@ -10,10 +10,14 @@ router.get('/login', (req, res, next) => {
 
 /* logout Route */
 router.get('/logout', (req, res, next) => {
-    res.redirect('/');
+    // 退出登录后 清空客户端的cookie
+    res.clearCookie('__email');
+    res.clearCookie('__password');
+    // 跳转到 登录页
+    res.redirect('/auth/login');
 });
 
-/* login in webst */
+/* login in website */
 router.post('/login', (req, res, next) => {
     //　模拟数据库查询 start
     const queryEmail = '453741411@qq.com';
@@ -23,10 +27,16 @@ router.post('/login', (req, res, next) => {
     console.log('login param:', req.body);
     if (email === queryEmail) {
       if (password === queryPassword) {
-        res.redirect('/');
-      } else {
+        // 成功登录后向客户端设置cookie,标识身份
+        res.cookie('__email', email, {signed: true});
+        res.cookie('__password', password, {signed: true});
         res.send({
           type: 1,
+          msg: '登录成功'
+        });
+      } else {
+        res.send({
+          type: 0,
           msg: '密码错误!'
         });
       }
