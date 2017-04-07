@@ -19,31 +19,31 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4 text-center col-md-offset-4 login-box">
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="POST" action="/auth/login">
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-3 control-label">邮 箱</label>
                     <div class="col-sm-9">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="邮箱">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="邮箱" name="email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-3 control-label">密 码</label>
                     <div class="col-sm-9">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="密码">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="password">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-10">
                     <div class="checkbox">
                         <label>
-                        <input type="checkbox"> 记住登录状态
+                        <input type="checkbox" name="rememberStatus"> 记住登录状态
                         </label>
                     </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-10">
-                        <a class="btn btn-default" href="/">登录</a>
+                        <button type="submit" class="btn btn-default" href="/">登录</button>
                     </div>
                 </div>
             </form>
