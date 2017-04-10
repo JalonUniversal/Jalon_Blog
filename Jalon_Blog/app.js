@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const cookieSecret = require('./config/config.js');
+const mongoose = require('mongoose');
 
 // 引入路由配置
 var index = require('./routes/index');
@@ -23,6 +24,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(cookieSecret.secret));
 app.use(express.static(path.join(__dirname, 'public')));
+// 连接数据库
+mongoose.connect('mongodb://127.0.0.1/blog', (err) => {
+  if (err) { console.log('__数据库连接失败!__', err); }
+  console.log('__数据库连接成功!__');
+});
 
 app.use('/', index);
 app.use('/users', users);
