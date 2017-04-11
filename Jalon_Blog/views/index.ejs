@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
   <%include header.ejs%>
+  <style>
+    .media:hover{
+      border-left: 4px solid #3498db;
+      margin-left: -4px;
+    }
+  </style>
   <body>
     <%include navbar.ejs%>
     <!--页面主体-->
-    <div class="container-fluid">
+    <div class="container" style="width:1200px;">
       <div class="row">
         <div class="col-md-9">
           <% articles.forEach(function(article){ %>
@@ -14,7 +20,7 @@
                 <img class="media-object" src="/images/vuejs.jpg">
               </div>
             </a>
-            <div class="media-body" style="margin-top:10px;">
+            <div class="media-body" style="padding-top:10px;">
               <h4 class="media-heading"><%=article.title %></h4>
               <%= article.description%>
             </div>
@@ -24,7 +30,7 @@
         <!--热门文章-->
         <div class="col-md-3">
           <div class="list-group">
-            <a href="#" class="list-group-item active">
+            <a href="#" class="list-group-item">
               <h4 class="list-group-item-heading">热门文章</h4>
             </a>
             <% topics.forEach(function(topic){ %>
@@ -33,10 +39,6 @@
               <p class="list-group-item-text"><%=topic.description%></p>
             </a>
             <% }) %>
-            <a href="#" class="list-group-item">
-              <h4 class="list-group-item-heading">Http 详解</h4>
-              <p class="list-group-item-text">...</p>
-            </a>
           </div>
         </div>
       </div>
