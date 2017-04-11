@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var detail = require('./routes/detail');
+var create = require('./routes/create');
 var auth = require('./routes/auth');
 // 实例化应用
 var app = express();
@@ -33,6 +34,7 @@ mongoose.connect('mongodb://127.0.0.1/blog', (err) => {
 app.use('/', index);
 app.use('/users', users);
 app.use('/detail', detail);
+app.use('/create', create);
 app.use('/auth', auth);
 
 // catch 404 and forward to error handler
