@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <%include header.ejs%>
+  <body>
+    <%include navbar.ejs%>
+    <!--页面主体-->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr> 
+                <th>#</th>
+                <th>标题</th>
+                <th>作者</th>
+                <th>发布日期</th>
+                <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% articles.map(function(article, index){ %>
+                <tr>
+                <th><%=index+1 %></th>
+                <td><%=article.title %></td>
+                <td><%=article.author %></td>
+                <td><%=article.description %></td>
+                <td>
+                    <div class="btn btn-xs btn-success">更新</div>
+                    <div 
+                      class="btn btn-xs btn-danger article-delete" 
+                      title="<%=article.title %>"
+                    >删除</div>
+                </td>
+                </tr>
+                <% })%>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(function(){
+            // 绑定文章删除事件
+            $('.article-delete').click(function(e){
+                const title = event.target.getAttribute('title');
+                $.ajax({
+                  url: '/article/delete',
+                  type: 'Delete',
+                  dataType: 'json',
+                  data: { 
+                    title
+                  },
+                  success(data) {
+                    if (!!data) {
+                      if (data.type === 1) {
+                        alert('删除成功!');
+                        location.reload();
+                      }
+                    }
+                  },
+                  error(err) {
+                    alert('删除失败!');
+                    console.log(err);
+                  }
+                });
+            });
+        });
+    </script>
+  </body>
+</html>
